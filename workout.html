@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workouts | FitTrack Pro</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="workout.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <h2>FitTrack</h2>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="workout.html" class="active">Workouts</a>
+  <a href="goals.html">Goals</a>
+  <a href="reminders.html">Reminders</a>
+  <a href="about.html">About</a>
+  <a href="#" onclick="logout()">Logout</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span id="menuBtn">☰</span>
+    <h2>Workout Tracker 💪</h2>
+  </div>
+
+  <!-- ADD WORKOUT CARD -->
+  <div class="card form-card">
+    <h3>Add Workout</h3>
+
+    <div class="form">
+      <input class="input" type="text" id="workoutInput" placeholder="e.g. Pushups, Running">
+      <button class="btn" onclick="addWorkout()">Add</button>
+    </div>
+  </div>
+
+  <!-- WORKOUT LIST CARD -->
+  <div class="card list-card">
+    <div class="list-header">
+      <h3>Your Workouts</h3>
+      <span id="workoutCount"></span>
+    </div>
+
+    <ul id="workoutList"></ul>
+
+    <!-- EMPTY STATE -->
+    <p id="emptyState" class="empty">No workouts yet. Start adding 💪</p>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script src="workout.js"></script>
+</body>
+</html>

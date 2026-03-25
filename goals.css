@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #1e293b;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+}
+
+.sidebar a {
+  display: block;
+  margin: 10px 0;
+  color: #cbd5f5;
+  text-decoration: none;
+}
+
+/* MAIN */
+.main {
+  margin-left: 240px;
+  padding: 20px;
+  width: calc(100% - 240px);
+}
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#menuBtn {
+  display: none;
+  cursor: pointer;
+}
+
+/* FORM */
+.form {
+  margin-top: 20px;
+}
+
+.form input {
+  padding: 10px;
+  width: 250px;
+}
+
+.form button {
+  padding: 10px;
+  background: #6c63ff;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* LIST */
+.list {
+  margin-top: 20px;
+}
+
+.list ul {
+  list-style: none;
+}
+
+.list li {
+  background: #1e293b;
+  padding: 12px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* COMPLETED */
+.completed {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+/* BUTTONS */
+.btns button {
+  margin-left: 5px;
+  border: none;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.complete-btn {
+  background: green;
+  color: white;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  .sidebar {
+    left: -240px;
+    transition: 0.3s;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  #menuBtn {
+    display: block;
+  }
+
+  .form input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
