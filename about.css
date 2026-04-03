@@ -88,15 +88,201 @@ body {
   padding: 20px;
   border-radius: 15px;
   transition: 0.3s;
+  cursor: pointer; /* Suggest interaction */
+  position: relative;
+}
+
+.team-card::after {
+  content: 'Click for Resume';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(108, 99, 255, 0.9);
+  color: white;
+  font-size: 11px;
+  padding: 5px 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.team-card:hover::after {
+  opacity: 1;
 }
 
 .team-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(108, 99, 255, 0.2);
+}
+
+/* RESUME BOX */
+.resume-box {
+  display: none; /* Auto-toggle via JS */
+  margin-top: 30px;
+  text-align: left;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.5s ease forwards;
+}
+
+.resume-box.active {
+  display: block;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.resume-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.header-main h2 {
+  font-size: 28px;
+  color: #6c63ff;
+  margin-bottom: 5px;
+}
+
+.header-contact p {
+  font-size: 13px;
+  color: #cbd5f5;
+  margin: 2px 0;
+}
+
+.resume-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.resume-section h3 {
+  color: #6c63ff;
+  border-bottom: 1px solid rgba(108, 99, 255, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.edu-item {
+  margin-bottom: 15px;
+}
+
+.edu-item p {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.cgpa {
+  display: inline-block;
+  margin-top: 5px;
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skills-group p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.links-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resume-link {
+  color: white;
+  background: rgba(108, 99, 255, 0.1);
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  transition: 0.3s;
+  text-align: center;
+}
+
+.resume-link:hover {
+  background: #6c63ff;
+  box-shadow: 0 0 15px rgba(108, 99, 255, 0.4);
+}
+
+.close-resume {
+  width: 100%;
+  margin-top: 30px;
+  padding: 12px;
+  background: transparent;
+  border: 1px dashed #ef4444;
+  color: #ef4444;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.close-resume:hover {
+  background: rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+}
+
+.team-img-wrapper {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto 15px auto;
+  overflow: hidden;
+  border: 3px solid rgba(108, 99, 255, 0.5);
+  box-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
+  transition: 0.3s;
 }
 
 .team-card img {
-  border-radius: 50%;
-  margin-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+/* SPECIFIC ZOOM FOR PRINCE RAJ */
+#prince-card img {
+  object-position: 37% 40%;      /* Increased percentage to shift the subject leftward */
+  transform: scale(3.5);        /* High-quality headshot zoom */
+  transform-origin: 37% 40%;    
+}
+
+/* STANDARD LOOK FOR OTHER CARDS (Priyanka etc.) */
+#priyanka-card img {
+  object-position: center center;
+  transform: scale(1.1);
+  transform-origin: center;
+}
+
+.team-card:hover .team-img-wrapper {
+  border-color: #6c63ff;
+  box-shadow: 0 0 25px rgba(108, 99, 255, 0.7);
+  transform: scale(1.05);
+}
+
+.team-card:hover img {
+  transform: scale(3.0); /* Even more zoom on hover for Prince */
+}
+
+#priyanka-card:hover img {
+  transform: scale(1.2); /* Standard hover for Priyanka */
 }
 
 /* TECH */

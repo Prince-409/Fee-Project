@@ -6,9 +6,11 @@ if (!user || !user.isLoggedIn) {
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("active");
-});
+if (menuBtn) {
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+  });
+}
 
 // LOCAL STORAGE
 let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
@@ -17,25 +19,27 @@ let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
 function displayWorkouts() {
   const list = document.getElementById("workoutList");
   const empty = document.getElementById("emptyState");
-  const count = document.getElementById("workoutCount");
+  const badge = document.getElementById("workoutCountBadge");
 
   list.innerHTML = "";
 
   workouts.forEach((workout, index) => {
     list.innerHTML += `
-      <li>
-        ${workout}
-        <button class="delete-btn" onclick="deleteWorkout(${index})">X</button>
+      <li class="workout-li">
+        <span class="workout-item-text">${workout}</span>
+        <div class="btns">
+           <button class="action-btn delete-btn" onclick="deleteWorkout(${index})" title="Delete Workout">✕</button>
+        </div>
       </li>
     `;
   });
 
-  // ✅ COUNT UPDATE
-  if (count) {
-    count.innerText =
+  // ✅ COUNT BADGE UPDATE
+  if (badge) {
+    badge.innerText =
       workouts.length === 1
-        ? "1 workout"
-        : `${workouts.length} workouts`;
+        ? "1 session"
+        : `${workouts.length} sessions`;
   }
 
   // ✅ EMPTY STATE
@@ -48,21 +52,41 @@ function displayWorkouts() {
   }
 }
 
+// TOGGLE CUSTOM WORKOUT
+function toggleCustomWorkout() {
+  const select = document.getElementById("workoutSelect");
+  const input = document.getElementById("workoutInput");
+  if (select.value === "Other") {
+    input.style.display = "block";
+    input.focus();
+  } else {
+    input.style.display = "none";
+    input.value = "";
+  }
+}
+
 // ADD
 function addWorkout() {
+  const select = document.getElementById("workoutSelect");
   const input = document.getElementById("workoutInput");
+  
+  let val = select.value === "Other" ? input.value : select.value;
 
-  if (input.value.trim() === "") {
+  if (val.trim() === "") {
     if (typeof showToast === "function") {
       showToast("Please enter a workout");
     }
     return;
   }
 
-  workouts.push(input.value);
+  workouts.push(val.trim());
   localStorage.setItem("workouts", JSON.stringify(workouts));
 
+  // Reset form
   input.value = "";
+  select.selectedIndex = 0;
+  input.style.display = "none";
+  
   displayWorkouts();
 }
 
@@ -79,10 +103,4 @@ displayWorkouts();
 function logout() {
   localStorage.removeItem("fittrackCurrentUser");
   window.location.href = "index.html";
-}
-
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", logout);
 }

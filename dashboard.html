@@ -5,63 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | FitTrack Pro</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
-  <h2>FitTrack</h2>
-  <a href="dashboard.html" class="active">Dashboard</a>
-  <a href="workout.html">Workouts</a>
-  <a href="goals.html">Goals</a>
-  <a href="reminders.html">Reminders</a>
-  <a href="about.html">About</a>
-  <a href="index.html">Logout</a>
+  <div class="sidebar-brand">
+    <h2>FitTrack</h2>
+  </div>
+  <nav class="sidebar-links">
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="workout.html">Workouts</a>
+    <a href="goals.html">Goals</a>
+    <a href="reminders.html">Reminders</a>
+    <a href="about.html">About</a>
+    <a href="#" onclick="logout()" id="logoutBtn">Logout</a>
+  </nav>
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-  <!-- NAVBAR -->
-  <div class="topbar">
-    <span id="menuBtn">☰</span>
-    <h3 id="welcomeText">Welcome</h3>
-  </div>
-
-  <!-- CARDS -->
-  <div class="cards">
-    <div class="card">
-      <h3>Workouts</h3>
-      <p id="workoutCount">0</p>
+  <!-- TOPBAR -->
+  <div class="topbar fade-in" style="animation-delay: 0.1s;">
+    <div class="header-left">
+       <span id="menuBtn">☰</span>
+       <h2 id="welcomeText" class="gradient-text">Welcome Back</h2>
     </div>
-
-    <div class="card">
-      <h3>Goals</h3>
-      <p id="goalCount">0</p>
-    </div>
-
-    <div class="card">
-      <h3>Reminders</h3>
-      <p>Active</p>
+    <div class="header-right">
+       <div class="profile-circle">SK</div>
     </div>
   </div>
 
-  <!-- ACTIONS -->
-  <div class="actions">
-    <button onclick="goTo('workout.html')">Add Workout</button>
-    <button onclick="goTo('goals.html')">Set Goal</button>
-    <button onclick="goTo('reminders.html')">Set Reminder</button>
-  </div>
+  <!-- BG ORBS -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
 
-  <!-- ACTIVITY -->
-  <div class="activity">
-    <h3>Recent Activity</h3>
-    <ul id="activityList"></ul>
-  </div>
+  <!-- DASHBOARD CONTENT -->
+  <div class="dashboard-content">
+    
+    <!-- STATS OVERVIEW SCROLL -->
+    <div class="stats-grid fade-in" style="animation-delay: 0.2s;">
+        <div class="stat-card">
+           <div class="stat-icon ico-workouts">🏋️</div>
+           <div class="stat-info">
+              <p>Workouts</p>
+              <h3 id="workoutCount">0</h3>
+           </div>
+        </div>
 
+        <div class="stat-card">
+           <div class="stat-icon ico-goals">🎯</div>
+           <div class="stat-info">
+              <p>Active Goals</p>
+              <h3 id="goalCount">0</h3>
+           </div>
+        </div>
+
+        <div class="stat-card">
+           <div class="stat-icon ico-reminders">⏰</div>
+           <div class="stat-info">
+              <p>Reminders</p>
+              <h3>Active</h3>
+           </div>
+        </div>
+    </div>
+
+    <!-- MAIN TWO COLUMN SECTION -->
+    <div class="info-grid">
+        <!-- LEFT: RECENT ACTIVITY -->
+        <div class="card activity-card fade-in" style="animation-delay: 0.3s;">
+           <div class="card-header">
+              <h3>Recent Momentum</h3>
+              <button class="text-btn" onclick="goTo('workout.html')">View All</button>
+           </div>
+           <ul id="activityList" class="premium-activity-list">
+              <!-- Rendered via JS -->
+           </ul>
+        </div>
+
+        <!-- RIGHT: QUICK ACTIONS -->
+        <div class="quick-actions-panel fade-in" style="animation-delay: 0.4s;">
+           <div class="card actions-card">
+              <h3>Quick Actions</h3>
+              <div class="action-buttons">
+                 <button class="action-btn-main" onclick="goTo('workout.html')">
+                    <span>💪</span> Add Workout
+                 </button>
+                 <button class="action-btn-main" onclick="goTo('goals.html')">
+                    <span>🎯</span> Set Goal
+                 </button>
+                 <button class="action-btn-main" onclick="goTo('reminders.html')">
+                    <span>🔔</span> New Alert
+                 </button>
+              </div>
+           </div>
+
+           <!-- PRO TIP -->
+           <div class="card tip-card">
+              <div class="tip-icon">💡</div>
+              <div class="tip-content">
+                 <h4>Pro Tip</h4>
+                 <p>Drinking water before a workout can improve performance by up to 10%!</p>
+              </div>
+           </div>
+        </div>
+    </div>
+
+  </div> <!-- End Content -->
 </div>
 
 <script src="dashboard.js"></script>

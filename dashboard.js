@@ -1,39 +1,66 @@
-  const user = JSON.parse(localStorage.getItem("fittrackCurrentUser"));
+const user = JSON.parse(localStorage.getItem("fittrackCurrentUser"));
 
 if (!user || !user.isLoggedIn) {
   window.location.href = "index.html";
 }
-  const menuBtn = document.getElementById("menuBtn");
+
+const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("active");
-});
-
-// USER DATA
-const user = JSON.parse(localStorage.getItem("fittrackCurrentUser"));
-
-if (user) {
-  document.getElementById("welcomeText").innerText = `Welcome, ${user.fullName}`;
+if (menuBtn) {
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+  });
 }
 
-// COUNTS
-let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
-let goals = JSON.parse(localStorage.getItem("goals")) || [];
+// SETUP PROFILE
+if (user) {
+  document.getElementById("welcomeText").innerText = `Welcome Back, ${user.fullName.split(' ')[0]} 👋`;
+  
+  // Update SK Initial
+  const profileCircle = document.querySelector(".profile-circle");
+  if (profileCircle) {
+      const initials = user.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
+      profileCircle.innerText = initials;
+  }
+}
+
+// COUNTS & ACTIVITY
+const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+const goals = JSON.parse(localStorage.getItem("goals")) || [];
 
 document.getElementById("workoutCount").innerText = workouts.length;
 document.getElementById("goalCount").innerText = goals.length;
 
-// ACTIVITY
 const activityList = document.getElementById("activityList");
 
-workouts.slice(-3).forEach(w => {
-  activityList.innerHTML += `<li>Workout: ${w}</li>`;
-});
+function renderActivity() {
+  activityList.innerHTML = "";
+  
+  const allActivity = [
+      ...workouts.map(w => ({ type: 'workout', name: w, icon: '🏋️', time: 'Recently' })),
+      ...goals.map(g => ({ type: 'goal', name: typeof g === 'string' ? g : g.text, icon: '🎯', time: 'Recently' }))
+  ].reverse().slice(0, 5); // Show last 5
 
-goals.slice(-3).forEach(g => {
-  activityList.innerHTML += `<li>Goal: ${g}</li>`;
-});
+  if (allActivity.length === 0) {
+      activityList.innerHTML = `<p style="color: #94a3b8; font-size: 14px; text-align: center; padding: 20px;">No recent activity yet. Start moving!</p>`;
+      return;
+  }
+
+  allActivity.forEach(act => {
+      activityList.innerHTML += `
+        <li class="activity-item">
+           <div class="activity-icon">${act.icon}</div>
+           <div class="activity-content">
+              <h5>${act.name}</h5>
+              <p>${act.type === 'workout' ? 'Completed Workout' : 'Added New Goal'} • ${act.time}</p>
+           </div>
+        </li>
+      `;
+  });
+}
+
+renderActivity();
 
 // NAVIGATION
 function goTo(page) {
@@ -46,7 +73,9 @@ function logout() {
 }
 
 const logoutBtn = document.getElementById("logoutBtn");
-
 if (logoutBtn) {
-  logoutBtn.addEventListener("click", logout);
+  logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      logout();
+  });
 }
